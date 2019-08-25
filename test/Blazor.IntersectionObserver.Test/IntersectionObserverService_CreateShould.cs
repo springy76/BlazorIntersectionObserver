@@ -34,7 +34,7 @@ namespace Tests
             mockJsRuntime
                 .Verify(v => v.InvokeAsync<object>(
                     Constants.CREATE,
-                    It.IsAny<DotNetObjectRef>(),
+                    It.IsAny<DotNetObjectRef<IntersectionObserverService>>(),
                     It.IsAny<string>(),
                     testOptions
                 ), Times.Once());
@@ -49,8 +49,8 @@ namespace Tests
             {
                 RootMargin = "10px 10px 10px 10px"
             };
-            var testElement = new ElementRef();
-            var otherTestElement = new ElementRef();
+            var testElement = new ElementReference();
+            var otherTestElement = new ElementReference();
 
             var observerService = new IntersectionObserverService(mockJsRuntime.Object);
             var observer = await observerService.Create(
@@ -66,7 +66,7 @@ namespace Tests
             mockJsRuntime
                 .Verify(v => v.InvokeAsync<object>(
                     Constants.CREATE,
-                    It.IsAny<DotNetObjectRef>(),
+                    It.IsAny<DotNetObjectRef<IntersectionObserverService>>(),
                     It.IsAny<string>(),
                     testOptions
                 ), Times.Once());
@@ -104,7 +104,7 @@ namespace Tests
             mockJsRuntime
                 .Verify(v => v.InvokeAsync<object>(
                     Constants.CREATE,
-                    It.IsAny<DotNetObjectRef>(),
+                    It.IsAny<DotNetObjectRef<IntersectionObserverService>>(),
                     It.IsAny<string>(),
                     It.IsAny<IntersectionObserverOptions>()
                 ), Times.Exactly(2));

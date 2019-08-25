@@ -296,7 +296,7 @@ namespace BlazorIntersectionObserverJS {
         }
 
         return {
-            Target: entry.target,
+            // DOM-Element can't be serialized to Server-Side-Blazor: Target: entry.target,
             IsIntersecting: entry.isIntersecting,
             IntersectionRatio: entry.intersectionRatio,
             Time: entry.time,

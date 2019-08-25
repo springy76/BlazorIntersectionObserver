@@ -21,12 +21,12 @@ namespace Blazor.IntersectionObserver
         /// <summary>
         /// On unobserving an element, trigger the action
         /// </summary>
-        private event Action<string, ElementRef> OnObserve;
+        private event Action<string, ElementReference> OnObserve;
 
         /// <summary>
         /// On unobserving an element, trigger the action
         /// </summary>
-        private event Action<string, ElementRef> OnUnobserve;
+        private event Action<string, ElementReference> OnUnobserve;
 
         /// <summary>
         /// On disconnecting the observer, trigger the action
@@ -44,8 +44,8 @@ namespace Blazor.IntersectionObserver
         public IntersectionObserver(
             string id,
             Action<IList<IntersectionObserverEntry>> onIntersectUpdate,
-            Action<string, ElementRef> onObserve,
-            Action<string, ElementRef> onUnobserve,
+            Action<string, ElementReference> onObserve,
+            Action<string, ElementReference> onUnobserve,
             Action<string> onDisconnect
         )
         {
@@ -74,7 +74,7 @@ namespace Blazor.IntersectionObserver
         /// reference to the action(s).
         /// </summary>
         /// <param name="elementRef">The element to observe</param>
-        public void Observe(ElementRef elementRef)
+        public void Observe(ElementReference elementRef)
         {
             OnObserve?.Invoke(this.Id, elementRef);
         }
@@ -84,7 +84,7 @@ namespace Blazor.IntersectionObserver
         /// reference to the action(s).
         /// </summary>
         /// <param name="elementRef">The element to unobserve</param>
-        public void Unobserve(ElementRef elementRef)
+        public void Unobserve(ElementReference elementRef)
         {
             OnUnobserve?.Invoke(this.Id, elementRef);
         }

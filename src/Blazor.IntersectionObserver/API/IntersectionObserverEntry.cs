@@ -4,7 +4,7 @@ namespace Blazor.IntersectionObserver.API
 {
     public class IntersectionObserverEntry
     {
-        public ElementRef Target { get; set; }
+        /* DOM-Element can't be serialized to Server-Side-Blazor: public ElementReference Target { get; set; }*/
 
         public bool IsIntersecting { get; set; }
 

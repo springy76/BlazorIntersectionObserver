@@ -23,7 +23,7 @@ namespace Tests
                 .Setup(x => x.InvokeAsync<bool>(
                     Constants.UNOBSERVE,
                     It.IsAny<string>(),
-                    It.IsAny<ElementRef>()
+                    It.IsAny<ElementReference>()
                 ))
                 .ReturnsAsync(true);
 
@@ -32,7 +32,7 @@ namespace Tests
                 RootMargin = "10px 10px 10px 10px",
                 Threshold = new List<double> { 0.25, 0.5, 1 }
             };
-            var testElementRef = new ElementRef();
+            var testElementRef = new ElementReference();
 
             var observerService = new IntersectionObserverService(mockJsRuntime.Object);
             var observer = await observerService.Observe(
@@ -43,7 +43,7 @@ namespace Tests
 
             var observerId = observer.Id;
 
-            observer.Unobserve(It.IsAny<ElementRef>());
+            observer.Unobserve(It.IsAny<ElementReference>());
 
             mockJsRuntime
                 .Verify(v => v.InvokeAsync<bool>(
@@ -69,7 +69,7 @@ namespace Tests
 
             var observerService = new IntersectionObserverService(mockJsRuntime.Object);
             var observer = await observerService.Observe(
-                It.IsAny<ElementRef>(),
+                It.IsAny<ElementReference>(),
                 It.IsAny<Action<IList<IntersectionObserverEntry>>>(),
                 mockOptions
             );
@@ -100,7 +100,7 @@ namespace Tests
                     IntersectionRatio = 1.0,
                     BoundingClientRect = new DOMRectReadOnly(),
                     RootBounds = new DOMRectReadOnly(),
-                    Target = new ElementRef()
+                    //Target = new ElementReference()
                 }
             };
 
@@ -109,7 +109,7 @@ namespace Tests
             var observerService = new IntersectionObserverService(mockJsRuntime.Object);
 
             var observer = await observerService.Observe(
-                It.IsAny<ElementRef>(),
+                It.IsAny<ElementReference>(),
                 mockOnIntersect.Object,
                 mockOptions
             );

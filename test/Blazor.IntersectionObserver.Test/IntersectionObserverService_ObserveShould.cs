@@ -23,7 +23,7 @@ namespace Tests
                 RootMargin = "10px 10px 10px 10px",
                 Threshold = new List<double> { 0.25, 0.5, 1 }
             };
-            var testElementRef = new ElementRef();
+            var testElementRef = new ElementReference();
 
             var observerService = new IntersectionObserverService(mockJsRuntime.Object);
             var observer = await observerService.Observe(
@@ -37,7 +37,7 @@ namespace Tests
             mockJsRuntime
                 .Verify(v => v.InvokeAsync<object>(
                     Constants.OBSERVE,
-                    It.IsAny<DotNetObjectRef>(),
+                    It.IsAny<DotNetObjectRef<IntersectionObserverService>>(),
                     observerId,
                     testElementRef,
                     testOptions

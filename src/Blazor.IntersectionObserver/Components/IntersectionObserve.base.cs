@@ -18,7 +18,7 @@ namespace Blazor.IntersectionObserver.Components
 
         [Parameter] public bool IsIntersecting { get; set; }
 
-        [Parameter] private EventCallback<bool> IsIntersectingChanged { get; set; }
+        [Parameter] public EventCallback<bool> IsIntersectingChanged { get; set; }
 
         [Parameter] public EventCallback<IntersectionObserverEntry> OnChange { get; set; }
 
@@ -26,7 +26,7 @@ namespace Blazor.IntersectionObserver.Components
 
         [Parameter] public bool Once { get; set; }
 
-        public ElementRef Element { get; set; }
+        public ElementReference Element { get; set; }
 
         public IntersectionObserverEntry Entry { get; set; }
 
