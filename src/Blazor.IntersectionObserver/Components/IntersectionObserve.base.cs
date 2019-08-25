@@ -1,13 +1,19 @@
-using Blazor.IntersectionObserver.API;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.RenderTree;
-using System;
-using System.Linq;
-
 namespace Blazor.IntersectionObserver.Components
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using API;
+
+    using Microsoft.AspNetCore.Components;
+
     public class IntersectionObserveBase : ComponentBase, IDisposable
     {
+        private static readonly Func<IntersectionObserverEntry, double> entryByTime = e => e.Time;
+
         [Inject] private IntersectionObserverService ObserverService { get; set; }
 
         [Parameter] public string Class { get; set; }
@@ -36,7 +42,7 @@ namespace Blazor.IntersectionObserver.Components
 
         protected override void OnAfterRender()
         {
-            if (!this.Observing)
+            if ( !this.Observing )
             {
                 this.InitialiseObserver();
                 this.Observing = true;
@@ -45,24 +51,37 @@ namespace Blazor.IntersectionObserver.Components
 
         private async void InitialiseObserver()
         {
-            this.Observer = await this.ObserverService.Observe(this.Element, async (entries) =>
+            this.Observer = await this.ObserverService.Observe(this.Element, this.OnIntersectUpdate, this.Options);
+        }
+
+        private void OnIntersectUpdate(IList<IntersectionObserverEntry> entries)
+        {
+            var entry = entries.OrderByDescending(entryByTime).FirstOrDefault();
+            if ( entry == null )
+                return;
+
+            async Task ProcessEntryAsync()
             {
-                var entry = entries.FirstOrDefault();
-
-                if (entry != null)
+                if ( this.Observer == null )
                 {
-                    await this.IsIntersectingChanged.InvokeAsync(entry.IsIntersecting);
-                    await this.OnChange.InvokeAsync(entry);
-                    this.Entry = entry;
-                    this.StateHasChanged();
-
-                    if (this.Once && entry.IsIntersecting)
-                    {
-                        this.Observer?.Disconnect();
-                        this.Observer = null;
-                    }
+                    Debug.Assert(this.Once && this.Entry?.IsIntersecting == true, "this.Once && this.Entry?.IsIntersecting == true");
+                    return;
                 }
-            }, this.Options);
+
+                await this.IsIntersectingChanged.InvokeAsync(entry.IsIntersecting);
+                await this.OnChange.InvokeAsync(entry);
+                this.Entry = entry;
+                this.StateHasChanged();
+
+                if ( this.Once && entry.IsIntersecting )
+                {
+                    var observer = this.Observer;
+                    this.Observer = null;
+                    observer?.Disconnect();
+                }
+            }
+
+            _ = Task.Run(() => this.InvokeAsync(ProcessEntryAsync));
         }
 
         public void Dispose()
