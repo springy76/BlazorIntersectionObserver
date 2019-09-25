@@ -11,8 +11,7 @@ namespace Blazor.IntersectionObserver
     public class IntersectionObserverService
     {
         private readonly IJSRuntime jsRuntime;
-
-        private DotNetObjectRef<IntersectionObserverService> dotnetObjRef;
+        private readonly DotNetObjectReference<IntersectionObserverService> dotnetObjRef;
 
         /// <summary>
         /// Contains a reference of observer instances and their ids.
@@ -22,7 +21,7 @@ namespace Blazor.IntersectionObserver
         public IntersectionObserverService(IJSRuntime jsRuntime)
         {
             this.jsRuntime = jsRuntime;
-            this.dotnetObjRef = DotNetObjectRef.Create(this);
+            this.dotnetObjRef = DotNetObjectReference.Create(this);
         }
 
         /// <summary>

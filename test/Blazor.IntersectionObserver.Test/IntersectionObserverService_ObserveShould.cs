@@ -37,7 +37,7 @@ namespace Tests
             mockJsRuntime
                 .Verify(v => v.InvokeAsync<object>(
                     Constants.OBSERVE,
-                    It.IsAny<DotNetObjectRef<IntersectionObserverService>>(),
+                    It.IsAny<DotNetObjectReference<IntersectionObserverService>>(),
                     observerId,
                     testElementRef,
                     testOptions

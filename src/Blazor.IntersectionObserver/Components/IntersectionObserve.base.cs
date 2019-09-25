@@ -40,7 +40,7 @@ namespace Blazor.IntersectionObserver.Components
 
         private bool Observing { get; set; }
 
-        protected override void OnAfterRender()
+        protected override void OnAfterRender(bool firstRendrer)
         {
             if ( !this.Observing )
             {

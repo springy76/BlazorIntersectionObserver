@@ -34,7 +34,7 @@ namespace Tests
             mockJsRuntime
                 .Verify(v => v.InvokeAsync<object>(
                     Constants.CREATE,
-                    It.IsAny<DotNetObjectRef<IntersectionObserverService>>(),
+                    It.IsAny<DotNetObjectReference<IntersectionObserverService>>(),
                     It.IsAny<string>(),
                     testOptions
                 ), Times.Once());
@@ -66,7 +66,7 @@ namespace Tests
             mockJsRuntime
                 .Verify(v => v.InvokeAsync<object>(
                     Constants.CREATE,
-                    It.IsAny<DotNetObjectRef<IntersectionObserverService>>(),
+                    It.IsAny<DotNetObjectReference<IntersectionObserverService>>(),
                     It.IsAny<string>(),
                     testOptions
                 ), Times.Once());
@@ -104,7 +104,7 @@ namespace Tests
             mockJsRuntime
                 .Verify(v => v.InvokeAsync<object>(
                     Constants.CREATE,
-                    It.IsAny<DotNetObjectRef<IntersectionObserverService>>(),
+                    It.IsAny<DotNetObjectReference<IntersectionObserverService>>(),
                     It.IsAny<string>(),
                     It.IsAny<IntersectionObserverOptions>()
                 ), Times.Exactly(2));

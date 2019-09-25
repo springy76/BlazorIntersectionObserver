@@ -5,7 +5,7 @@
     <p>
         Survey prompt. @(IsIntersecting ? "Intersecting!!" : "Not intersecting!!")
     </p>
-    <button @onclick="@(() => SetupObserver())">
+    <button @onclick="this.SetupObserver">
         Start observing
     </button>
 </div>
